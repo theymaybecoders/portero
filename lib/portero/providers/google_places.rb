@@ -18,6 +18,7 @@ module Portero
         results = []
         venues.each do |found_venue|
           venue = Portero::SearchResult.new
+          venue.id = found_venue["id"]
           venue.name = found_venue["name"]
           venue.address = found_venue["formatted_address"]
           venue.latitude = found_venue["geometry"]["location"]["lat"]

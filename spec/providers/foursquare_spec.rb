@@ -27,6 +27,11 @@ describe Portero::SearchProvider::Foursquare do
 
     describe 'individual' do
 
+      it 'should have an id' do
+        @results.first.id.should == "4ade3739f964a520fa7321e3"
+      end
+
+
       it 'should have a name' do
         @results.first.name.should == "Bar Louie"
       end

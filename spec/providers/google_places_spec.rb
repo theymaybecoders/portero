@@ -28,6 +28,10 @@ describe Portero::SearchProvider::GooglePlaces do
 
     describe 'individual' do
 
+      it 'should have an id' do
+        @results.first.id.should == "d5e15c83a543424975a17a7e801f2fc3e2ac9151"
+      end
+
       it 'should have a name' do
         @results.first.name.should == "Dewey's Pizza"
       end

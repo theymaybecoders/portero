@@ -34,6 +34,7 @@ Options can be anything the provider allows. All providers may not utilize all o
 
 SearchResult objects contain the following fields
 
+    id
     name
     address
     latitude
