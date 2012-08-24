@@ -4,8 +4,8 @@ require File.expand_path('../lib/portero/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Robert Rouse"]
   gem.email         = ["robert@theymaybecoders.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Portero will help you find venues around a location using as many services known}
+  gem.summary       = %q{Portero will help you find venues around a location using as many services known}
   gem.homepage      = "http://github.com/theymaybecoders"
 
   gem.files         = `git ls-files`.split($\)
