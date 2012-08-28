@@ -25,6 +25,13 @@ describe Portero::SearchProvider::Foursquare do
       @results.first.should be_a(Portero::SearchResult)
     end
 
+    it 'should return an array of SearchResults when not given a query string' do
+      @results = @provider.search(@conn, nil, 38.585287, -90.40936, radius: 1000, limit: 50)
+      @results.should be_a(Array)
+      @results.first.should be_a(Portero::SearchResult)
+      @results.first.name.should == "Global Foods Market"
+    end
+
     describe 'individual' do
 
       it 'should have an id' do

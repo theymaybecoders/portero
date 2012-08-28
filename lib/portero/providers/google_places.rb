@@ -7,8 +7,15 @@ module Portero
       requires_option :key
 
       def search(conn, query, latitude, longitude, options = {})
-        results = conn.get("https://maps.googleapis.com/maps/api/place/textsearch/json", {query: query, key: @provider_options[:key],
-        radius: options[:radius], location: [latitude, longitude].join(","), sensor: false})
+        params = {}
+        params[:query] = query if query
+        params[:key] = @provider_options[:key]
+        params[:radius] = options[:radius] || 10000
+        params[:location] = [latitude, longitude].join(",")
+        params[:sensor] = false
+
+        url = query.present? ? "https://maps.googleapis.com/maps/api/place/textsearch/json" : "https://maps.googleapis.com/maps/api/place/search/json"
+        results = conn.get(url, params)
         parse_results(results)
       end
 
@@ -20,7 +27,7 @@ module Portero
           venue = Portero::SearchResult.new
           venue.id = found_venue["id"]
           venue.name = found_venue["name"]
-          venue.address = found_venue["formatted_address"]
+          venue.address = found_venue["formatted_address"] || found_venue["vicinity"]
           venue.latitude = found_venue["geometry"]["location"]["lat"]
           venue.longitude = found_venue["geometry"]["location"]["lng"]
           venue.city = ""

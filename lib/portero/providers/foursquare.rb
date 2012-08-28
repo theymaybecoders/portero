@@ -7,8 +7,15 @@ module Portero
       requires_option :client_secret
 
       def search(conn, query, latitude, longitude, options = {})
-        results = conn.get("https://api.foursquare.com/v2/venues/search", {query: query, client_id: @provider_options[:client_id], client_secret: @provider_options[:client_secret], v: "20120709",
-          limit: options[:limit], radius: options[:radius], ll: [latitude, longitude].join(",")})
+        params = {}
+        params[:query] = query if query
+        params[:client_id] = @provider_options[:client_id]
+        params[:client_secret] = @provider_options[:client_secret]
+        params[:ll] = [latitude, longitude].join(",")
+        params[:v] = "20120709"
+        params[:limit] = options[:limit] || 50
+        params[:radius] = options[:radius] || 10000
+        results = conn.get("https://api.foursquare.com/v2/venues/search", params)
         parse_results(results)
       end
 
@@ -27,8 +34,8 @@ module Portero
           venue.state = found_venue["location"]["state"]
           venue.postal_code = found_venue["location"]["postalCode"]
           venue.country = found_venue["location"]["country"]
-          venue.category = found_venue["categories"].first["name"]
-          venue.icon = found_venue["categories"].first["icon"]["prefix"] + "64" + found_venue["categories"].first["icon"]["suffix"]
+          venue.category = found_venue["categories"].first["name"] if found_venue["categories"].first
+          venue.icon = found_venue["categories"].first["icon"]["prefix"] + "64" + found_venue["categories"].first["icon"]["suffix"] if found_venue["categories"].first
           venue.extra = {categories: found_venue["categories"], url: found_venue["url"]}
 
           results << venue
