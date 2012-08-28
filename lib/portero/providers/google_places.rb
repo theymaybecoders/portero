@@ -36,7 +36,7 @@ module Portero
           venue.country = ""
           venue.category = found_venue["types"].first
           venue.icon = found_venue["icon"]
-          venue.extra = {types: found_venue["types"]}
+          venue.extra = HashWithIndifferentAccess.new({types: found_venue["types"]})
 
           results << venue
         end

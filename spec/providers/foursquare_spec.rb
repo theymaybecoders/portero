@@ -75,9 +75,13 @@ describe Portero::SearchProvider::Foursquare do
         @results.first.category.should == "Bar"
       end
 
-
       it 'should have an icon' do
         @results.first.icon.should == "https://foursquare.com/img/categories_v2/nightlife/bar_64.png"
+      end
+
+      it 'should have extra data that should be accessible via string or symbol keys' do
+        @results.first.extra["categories"].first["icon"]["prefix"] == "https://foursquare.com/img/categories_v2/nightlife/bar_"
+        @results.first.extra[:categories].first[:icon][:suffix] == ".png"
       end
     end
   end
