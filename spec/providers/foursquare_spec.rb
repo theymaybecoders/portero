@@ -83,6 +83,12 @@ describe Portero::SearchProvider::Foursquare do
         @results.first.extra["categories"].first["icon"]["prefix"] == "https://foursquare.com/img/categories_v2/nightlife/bar_"
         @results.first.extra[:categories].first[:icon][:suffix] == ".png"
       end
+
+      it 'should have extra data for categories, contact, and url' do
+        @results.first.extra["categories"].present?.should be_true
+        @results.first.extra["contact"].present?.should be_true
+        @results.first.extra["url"].present?.should be_true
+      end
     end
   end
 end

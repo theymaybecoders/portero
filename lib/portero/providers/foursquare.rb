@@ -36,7 +36,7 @@ module Portero
           venue.country = found_venue["location"]["country"]
           venue.category = found_venue["categories"].first["name"] if found_venue["categories"].first
           venue.icon = found_venue["categories"].first["icon"]["prefix"] + "64" + found_venue["categories"].first["icon"]["suffix"] if found_venue["categories"].first
-          venue.extra = HashWithIndifferentAccess.new({categories: found_venue["categories"], url: found_venue["url"]})
+          venue.extra = HashWithIndifferentAccess.new({categories: found_venue["categories"], url: found_venue["url"], contact: found_venue["contact"]})
 
           results << venue
         end
